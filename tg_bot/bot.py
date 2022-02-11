@@ -1,14 +1,15 @@
 import telebot
+# Создаем экземпляр бота
+bot = telebot.TeleBot('5152696792:AAFcyi0XKhr-Ma13TC3UvkPUEwsW6JUkJtg')
+# Функция, обрабатывающая команду /start
+@bot.message_handler(commands=["start"])
+def start(m, res=False):
+    bot.send_message(m.chat.id, 'Я на связи. Напиши мне что-нибудь )')
+# Получение сообщений от юзера
+@bot.message_handler(content_types=["text"])
+def handle_text(message):
+    bot.send_message(message.chat.id, 'Вы написали: ' + message.text)
+# Запускаем бота
+bot.polling(none_stop=True, interval=0)
 
-TOKEN = '5152696792:AAFcyi0XKhr-Ma13TC3UvkPUEwsW6JUkJtg'
-bot = telebot.TeleBot(TOKEN)
-def echo_messages(*messages):
-
-    for m in messages:
-        chatid = m.chat.id
-        if m.content_type == 'text':
-            text = m.text
-            bot.send_message(chatid, text)
-            bot.set_update_listener(echo_messages)
-
-        bot.polling()
+#TOKEN = '5152696792:AAFcyi0XKhr-Ma13TC3UvkPUEwsW6JUkJtg'
